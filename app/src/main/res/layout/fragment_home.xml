@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/HomeRecyclerView"
-    tools:context=".UI.HomeFragment">
+    android:id="@+id/HomeLinearLayout"
+    tools:context=".UI.HomeFragment"
+    android:orientation="horizontal">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/reyclerViewHome"
+        android:scrollbars="vertical">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
-
-</androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

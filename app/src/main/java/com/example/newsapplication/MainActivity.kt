@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         .addConverterFactory(GsonConverterFactory.create()).build()
 
                     var API = rf.create(NewsApi::class.java)
-                    var call = API.data
+                    var call = API.getHeadlines()
 
                     call.enqueue(object:Callback<Model>{
                         override fun onResponse(call: Call<Model>, response: Response<Model>) {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                                 data[i] = dataList[i].title
                                 data[i] = dataList[i].description
                                 data[i] = dataList[i].url
-                                data[i] = dataList[i].urltoImage
+                                data[i] = dataList[i].urlToImage
                                 data[i] = dataList[i].publishedAt
                             }
 

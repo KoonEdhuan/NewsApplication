@@ -1,20 +1,20 @@
 package com.example.newsapplication.UI
 
 import android.os.Bundle
+import android.provider.DocumentsContract
+import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.Interface.NewsApi
 import com.example.newsapplication.MainActivity
 import com.example.newsapplication.Model.Model
 import com.example.newsapplication.R
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,6 +32,13 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    companion object{
+        const val API_KEY = "1a7737621cbf49309d60ff95242a2ea4"
+        const val BASE_URL: String = "https://newsapi.org/v2/"
+    }
+
+    private lateinit var layoutManager : LinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,39 +46,38 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        var rv: RecyclerView = view.findViewById(R.id.HomeRecyclerView)
 
-        var rf = Retrofit.Builder()
-            .baseUrl(NewsApi.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+//        val apiInterface = NewsApi.create().getHeadlines()
+//
+//        apiInterface.enqueue(object : Callback<List<Model>>{
+//            override fun onResponse(call: Call<List<Model>>, response: Response<List<Model>>) {
+//
+//                if (response?.body() != null){
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<Model>>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
 
-        var API = rf.create(NewsApi::class.java)
-        var call = API.data
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        call.enqueue(object: Callback<Model> {
+        val service = retrofit.create(NewsApi::class.java)
+        val call = service.getHeadlines()
+
+        call.enqueue(object : Callback<Model>{
             override fun onResponse(call: Call<Model>, response: Response<Model>) {
-                var dataList : List<Model>? = response.body() as List<Model>
-                var data = arrayOfNulls<String>(dataList!!.size)
-
-                for (i in dataList!!.indices){
-                    data[i] = dataList[i].author
-                    data[i] = dataList[i].title
-                    data[i] = dataList[i].description
-                    data[i] = dataList[i].url
-                    data[i] = dataList[i].urltoImage
-                    data[i] = dataList[i].publishedAt
-                }
-
-                var adapter = ArrayAdapter<String>(context, R.layout.recycler_item_layout,data)
-                rv.adapter = adapter
-
 
             }
 
             override fun onFailure(call: Call<Model>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
         })
     }
 
