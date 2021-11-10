@@ -36,38 +36,6 @@ class MainActivity : AppCompatActivity() {
             when(position){
                 0 ->{
                     tablayout.text = "home"
-
-                    var rf = Retrofit.Builder()
-                        .baseUrl(NewsApi.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create()).build()
-
-                    var API = rf.create(NewsApi::class.java)
-                    var call = API.getHeadlines()
-
-                    call.enqueue(object:Callback<Model>{
-                        override fun onResponse(call: Call<Model>, response: Response<Model>) {
-                            var dataList : List<Model>? = response.body() as List<Model>
-                            var data = arrayOfNulls<String>(dataList!!.size)
-
-                            for (i in dataList!!.indices){
-                                data[i] = dataList[i].author
-                                data[i] = dataList[i].title
-                                data[i] = dataList[i].description
-                                data[i] = dataList[i].url
-                                data[i] = dataList[i].urlToImage
-                                data[i] = dataList[i].publishedAt
-                            }
-
-                            var adapter = ArrayAdapter<String>(applicationContext, R.layout.recycler_item_layout, data)
-
-
-                        }
-
-                        override fun onFailure(call: Call<Model>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
-
-                    })
                 }
                 1 ->{
                     tablayout.text = "india"
@@ -83,8 +51,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.attach()
-
-
 
 
     }

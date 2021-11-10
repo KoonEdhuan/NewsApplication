@@ -10,8 +10,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/reyclerViewHome"
-        android:scrollbars="vertical">
+        android:id="@+id/recyclerViewHome"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/recycler_item_layout">
 
     </androidx.recyclerview.widget.RecyclerView>
 

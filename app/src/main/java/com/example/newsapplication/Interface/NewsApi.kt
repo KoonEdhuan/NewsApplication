@@ -1,6 +1,7 @@
 package com.example.newsapplication.Interface
 
 import android.provider.ContactsContract
+import com.example.newsapplication.MainNews
 import com.example.newsapplication.Model.Model
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -23,13 +24,19 @@ interface NewsApi {
 //        }
     }
 
-//    @get: GET("top-headlines/sources?apiKey=1a7737621cbf49309d60ff95242a2ea4")
-//      val sources: Call<Model>
 
-    @GET("top-headlines?country-in&apiKey="+ API_KEY)
-    fun getHeadlines() : Call<Model>
+    @GET("top-headlines")
+    fun getHeadlines(
+        @Query("country") country : String,
+        @Query("apiKey") apiKey : String
+    ) : Call<MainNews>
 
-    @GET("")
-    fun categoryNews() : Call<Model>
+
+    @GET("top-headlines")
+    fun categoryNews(
+        @Query("country") country : String,
+        @Query("category") category : String,
+        @Query("apiKey") apiKey : String
+    ) : Call<MainNews>
 
 }

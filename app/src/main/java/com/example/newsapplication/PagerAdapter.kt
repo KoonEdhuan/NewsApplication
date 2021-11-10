@@ -1,6 +1,5 @@
 package com.example.newsapplication
 
-import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -41,23 +40,10 @@ class PagerAdapter(manager : FragmentManager, lifecycle: Lifecycle) : FragmentSt
         }
     }
 
-    //    override fun getCount(): Int {
-//        return fragmentList.size
-//    }
-//
-//    override fun getItem(position: Int): Fragment {
-//        return fragmentList[position]
-//    }
-//
+
     fun addFragment(fragment: Fragment, title: String){
         fragmentList.add(fragment)
         titleList.add(title)
     }
-//
-//    override fun getPageTitle(position: Int): CharSequence? {
-//        return titleList[position]
-//    }
-
-
 
 }
